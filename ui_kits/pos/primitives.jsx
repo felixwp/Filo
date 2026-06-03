@@ -134,7 +134,15 @@ function NavRail({ active, onNav, user, onLogout, shiftMins = 0 }) {
   const shiftLabel = fmtShift(shiftMins);
   return (
     <div style={{ width: 84, background: 'var(--filo-black)', borderRight: '0.5px solid var(--border-cream)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '18px 0', gap: 8, flexShrink: 0 }}>
-      <img src="../../assets/filo-mark-green.svg" height="38" style={{ marginBottom: 18 }} alt="Filo" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 240" height="38" aria-label="Filo" style={{ marginBottom: 18, flexShrink: 0 }}>
+        <circle cx="120" cy="120" r="120" fill="#0D4A28" />
+        <g fill="none" stroke="#F5EFE4" strokeWidth="11" strokeLinecap="round">
+          <path d="M90 142 A30 30 0 0 1 150 142" />
+          <path d="M68 142 A52 52 0 0 1 172 142" />
+          <path d="M46 142 A74 74 0 0 1 194 142" />
+        </g>
+        <circle cx="250" cy="92" r="9" fill="#C9921E" />
+      </svg>
       {items.map(it => (
         <NavItem key={it.id} icon={it.icon} label={it.label} active={active === it.id} onClick={() => onNav(it.id)} />
       ))}

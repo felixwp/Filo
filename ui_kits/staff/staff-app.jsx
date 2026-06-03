@@ -104,6 +104,11 @@ const PAYSLIP = {
   hours: 28.5, rate: 28.50, gross: 812.25, tips: 153.00, tax: 182.76, net: 782.49,
 };
 
+const LEAVE = [
+  { icon: 'umbrella', label: 'Annual leave',        hours: 68.5, total: 152, days: 9.1,  lastTaken: '14 Mar',  note: 'Rolls over · no expiry',   color: '#5cc88a', bg: 'rgba(20,99,58,0.14)'   },
+  { icon: 'heart',    label: "Personal / carer's",  hours: 41.3, total: 76,  days: 5.5,  lastTaken: '22 Apr',  note: 'Resets 1 Jul 2026',        color: '#e0973f', bg: 'rgba(201,122,30,0.14)' },
+];
+
 const BREAK_MINS = 330; // 5.5h
 
 /* ── Home tab ────────────────────────────────────────────────────────────── */
@@ -438,6 +443,37 @@ function PayTab() {
           <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 18, color: 'var(--filo-gold)', fontVariantNumeric: 'tabular-nums' }}>A${PAYSLIP.net.toFixed(2)}</span>
         </div>
       </SCard>
+      {/* Leave balances */}
+      <div style={{ marginTop: 22, marginBottom: 14 }}>
+        <div style={{ font: 'var(--text-label)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 11, color: 'var(--fg-3)', marginBottom: 12 }}>Leave balances</div>
+        <SCard>
+          {LEAVE.map((lv, i) => (
+            <div key={i} style={{ padding: '14px 0', borderBottom: i < LEAVE.length - 1 ? '0.5px solid var(--border-cream)' : 'none' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                <div style={{ width: 30, height: 30, borderRadius: 8, background: lv.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <SIcon name={lv.icon} size={14} color={lv.color} />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ font: 'var(--text-label)', color: 'var(--fg-1)', fontWeight: 700 }}>{lv.label}</div>
+                  <div style={{ font: 'var(--text-label)', fontSize: 11, color: 'var(--fg-4)', marginTop: 1 }}>Last taken {lv.lastTaken} · {lv.note}</div>
+                </div>
+                <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                  <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 16, color: lv.color, fontVariantNumeric: 'tabular-nums' }}>{lv.hours}h</div>
+                  <div style={{ font: 'var(--text-label)', fontSize: 11, color: 'var(--fg-4)' }}>{lv.days} days</div>
+                </div>
+              </div>
+              <div style={{ height: 4, background: 'var(--border-cream)', borderRadius: 999, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${Math.round(lv.hours / lv.total * 100)}%`, background: lv.color, borderRadius: 999 }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 5 }}>
+                <span style={{ font: 'var(--text-label)', fontSize: 11, color: 'var(--fg-4)' }}>{lv.hours}h remaining</span>
+                <span style={{ font: 'var(--text-label)', fontSize: 11, color: 'var(--fg-4)' }}>{lv.total}h/yr</span>
+              </div>
+            </div>
+          ))}
+        </SCard>
+      </div>
+
       {downloaded ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '14px 16px', background: 'rgba(20,99,58,0.15)', borderRadius: 12, border: '0.5px solid rgba(20,99,58,0.3)' }}>
           <SIcon name="check-circle-2" size={18} color="#5cc88a" />

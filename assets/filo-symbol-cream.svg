@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 60 222 92" width="222" height="92" role="img" aria-label="Filo symbol">
+  <g fill="none" stroke="#F5EFE4" stroke-width="11" stroke-linecap="round">
+    <path d="M90 142 A30 30 0 0 1 150 142"></path>
+    <path d="M68 142 A52 52 0 0 1 172 142"></path>
+    <path d="M46 142 A74 74 0 0 1 194 142"></path>
+  </g>
+  <circle cx="250" cy="92" r="9" fill="#C9921E"></circle>
+</svg>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Finch — Collingwood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --surface: #1C1C1C;
+      --green:   #0D4A28;
+      --green-bright: #14633A;
+      --gold:    #C9921E;
+      --cream:   #F5EFE4;
+      --cream-2: rgba(245,239,228,0.70);
+      --cream-3: rgba(245,239,228,0.40);
+      --cream-4: rgba(245,239,228,0.18);
+      --border:  rgba(245,239,228,0.10);
+      --font: 'Instrument Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 68px;
+      background: rgba(10,10,10,0.82);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 0.5px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 28px; }
+    .nav-divider {
+      width: 0.5px; height: 20px;
+      background: var(--cream-4);
+    }
+    .nav-venue {
+      font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--cream); text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--cream-3);
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-book {
+      display: inline-flex; align-items: center;
+      background: var(--green); color: var(--cream);
+      font-family: var(--font); font-size: 13px; font-weight: 700;
+      letter-spacing: 0.04em; text-decoration: none;
+      padding: 10px 22px; border-radius: 8px;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .nav-book:hover { background: var(--green-bright); transform: scale(0.98); }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 48px 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 100% 80% at 50% 110%, rgba(13,74,40,0.18) 0%, transparent 60%), var(--black);
+      overflow: hidden;
+    }
+
+    /* parallax wrapper — JS moves this */
+    .orb-wrap {
+      position: absolute;
+      will-change: transform;
+      pointer-events: none;
+    }
+    .orb-wrap-1 { top: -300px; left: -180px; }
+    .orb-wrap-2 { bottom: -260px; right: -140px; }
+    .orb-wrap-3 { top: 22%; left: 50%; }
+    .orb-wrap-4 { top: 45%; left: 12%; }
+    .orb-wrap-5 { top: 38%; left: 40%; }
+
+    /* orb — CSS drift animation only */
+    .orb {
+      border-radius: 50%;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 950px; height: 950px;
+      background: radial-gradient(circle, rgba(8,72,62,0.72) 0%, rgba(8,60,50,0.35) 40%, transparent 68%);
+      filter: blur(50px);
+      animation: drift-1 14s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 850px; height: 850px;
+      background: radial-gradient(circle, rgba(6,58,52,0.65) 0%, rgba(6,48,42,0.28) 45%, transparent 68%);
+      filter: blur(55px);
+      animation: drift-2 17s ease-in-out infinite alternate;
+    }
+    .orb-3 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(180,100,18,0.42) 0%, rgba(160,85,12,0.18) 50%, transparent 70%);
+      filter: blur(48px);
+      animation: drift-3 11s ease-in-out infinite alternate;
+    }
+    .orb-4 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(10,62,55,0.55) 0%, rgba(8,50,44,0.22) 50%, transparent 70%);
+      filter: blur(60px);
+      animation: drift-4 19s ease-in-out infinite alternate;
+    }
+    .orb-5 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(12,88,75,0.60) 0%, rgba(8,65,55,0.20) 55%, transparent 72%);
+      filter: blur(38px);
+      animation: drift-3 9s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes drift-1 {
+      0%   { transform: translate(0px, 0px) scale(1); }
+      33%  { transform: translate(180px, 120px) scale(1.12); }
+      66%  { transform: translate(90px, 220px) scale(0.91); }
+      100% { transform: translate(240px, 70px) scale(1.09); }
+    }
+    @keyframes drift-2 {
+      0%   { transform: translate(0px, 0px) scale(1); }
+      40%  { transform: translate(-200px, -90px) scale(1.14); }
+      70%  { transform: translate(-110px, -200px) scale(0.88); }
+      100% { transform: translate(-220px, -110px) scale(1.10); }
+    }
+    @keyframes drift-3 {
+      0%   { transform: translate(0px, 0px) scale(1); opacity: 0.8; }
+      50%  { transform: translate(-120px, 90px) scale(1.22); opacity: 1; }
+      100% { transform: translate(90px, -70px) scale(0.82); opacity: 0.6; }
+    }
+    @keyframes drift-4 {
+      0%   { transform: translate(0px, 0px) scale(1); }
+      45%  { transform: translate(150px, -110px) scale(1.18); }
+      100% { transform: translate(-90px, 90px) scale(0.86); }
+    }
+
+    /* subtle grain texture */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--cream-3);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 700; line-height: 0.96;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 400; line-height: 1.6;
+      color: var(--cream-2);
+      max-width: 480px; margin: 0 auto 44px;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--green); color: var(--cream);
+      font-family: var(--font); font-size: 15px; font-weight: 700;
+      text-decoration: none; padding: 16px 32px; border-radius: 10px;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--green-bright); transform: scale(0.98); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: transparent; color: var(--cream-2);
+      font-family: var(--font); font-size: 15px; font-weight: 600;
+      text-decoration: none; padding: 15px 32px; border-radius: 10px;
+      border: 1px solid var(--cream-4); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.1s;
+    }
+    .btn-secondary:hover { border-color: var(--cream-3); color: var(--cream); transform: scale(0.98); }
+
+    .hero-meta {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 28px; z-index: 1;
+      white-space: nowrap;
+    }
+    .hero-meta-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--cream-3); letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .hero-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--cream-4); }
+
+    /* ── Section shared ──────────────────────────────────────── */
+    section { padding: 96px 48px; }
+
+    .section-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--cream-3);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.01em; color: var(--cream);
+    }
+    .section-body {
+      font-size: 16px; line-height: 1.7;
+      color: var(--cream-2); max-width: 560px;
+    }
+
+    /* ── About ───────────────────────────────────────────────── */
+    .about {
+      border-top: 0.5px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+
+    .about-quote {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 400; font-style: italic;
+      line-height: 1.45; color: var(--cream-2);
+      border-left: 2px solid var(--green);
+      padding-left: 28px;
+    }
+    .about-quote em { color: var(--cream); font-style: normal; }
+
+    .about-right { display: flex; flex-direction: column; gap: 20px; }
+
+    /* ── Menu highlights ─────────────────────────────────────── */
+    .menu-section {
+      border-top: 0.5px solid var(--border);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .menu-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .menu-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 16px; padding: 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .menu-card:hover { border-color: rgba(13,74,40,0.5); transform: translateY(-2px); }
+
+    .menu-card-category {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--cream-3);
+    }
+    .menu-card-name {
+      font-size: 18px; font-weight: 700; line-height: 1.25;
+      color: var(--cream);
+    }
+    .menu-card-desc {
+      font-size: 13px; line-height: 1.6; color: var(--cream-3);
+      flex: 1;
+    }
+    .menu-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 4px;
+    }
+    .menu-card-price {
+      font-size: 18px; font-weight: 700;
+      color: var(--gold); font-variant-numeric: tabular-nums;
+    }
+    .menu-card-tags { display: flex; gap: 5px; }
+    .tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 8px; border-radius: 999px;
+      background: rgba(245,239,228,0.08); color: var(--cream-3);
+    }
+
+    .menu-view-all {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600; color: var(--cream-3);
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .menu-view-all:hover { color: var(--cream); }
+    .menu-view-all svg { transition: transform 0.2s; }
+    .menu-view-all:hover svg { transform: translateX(3px); }
+
+    /* ── Hours + Location ────────────────────────────────────── */
+    .info-section {
+      border-top: 0.5px solid var(--border);
+      max-width: 1200px; margin: 0 auto;
+    }
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+      margin-top: 56px;
+    }
+
+    .info-block { display: flex; flex-direction: column; gap: 6px; }
+    .info-block-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--cream-3); margin-bottom: 20px;
+    }
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 11px 0;
+      border-bottom: 0.5px solid var(--border);
+      font-size: 14px;
+    }
+    .hours-day { color: var(--cream-2); font-weight: 500; }
+    .hours-time { color: var(--cream); font-variant-numeric: tabular-nums; }
+    .hours-closed { color: var(--cream-3); }
+
+    .location-detail {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .location-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--surface); border: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .location-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--cream-3); margin-bottom: 4px;
+    }
+    .location-value { font-size: 15px; color: var(--cream); line-height: 1.5; }
+
+    /* ── Book CTA band ───────────────────────────────────────── */
+    .cta-band {
+      border-top: 0.5px solid var(--border);
+      background: linear-gradient(135deg, rgba(13,74,40,0.18) 0%, transparent 60%);
+      padding: 96px 48px;
+      text-align: center;
+    }
+    .cta-band .section-title { margin-bottom: 14px; }
+    .cta-band .section-body { margin: 0 auto 40px; text-align: center; }
+    .cta-note {
+      margin-top: 16px;
+      font-size: 12px; color: var(--cream-3); letter-spacing: 0.04em;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 36px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .footer-brand img { height: 20px; opacity: 0.5; }
+    .footer-powered {
+      font-size: 11px; color: var(--cream-3); letter-spacing: 0.06em;
+    }
+    .footer-powered a {
+      color: var(--cream-2); text-decoration: none; font-weight: 600;
+      transition: color 0.2s;
+    }
+    .footer-powered a:hover { color: var(--cream); }
+
+    .footer-links {
+      display: flex; gap: 24px; list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px; color: var(--cream-3); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+
+    /* ── Booking coming-soon tooltip ─────────────────────────── */
+    .book-wrapper { position: relative; display: inline-block; }
+    .book-tooltip {
+      position: absolute; bottom: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: 8px; padding: 8px 14px;
+      font-size: 12px; color: var(--cream-2); white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .book-tooltip::after {
+      content: '';
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--surface);
+    }
+    .book-wrapper:hover .book-tooltip {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      section { padding: 64px 24px; }
+      .hero { padding: 100px 24px 72px; }
+      .about { grid-template-columns: 1fr; gap: 40px; }
+      .info-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+      .cta-band { padding: 72px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a class="nav-brand" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 240" height="28" role="img" aria-label="Filo mark">
+        <circle cx="120" cy="120" r="120" fill="#0D4A28"/><g fill="#F5EFE4"><rect x="80" y="62" width="16" height="116" rx="1"/><rect x="80" y="62" width="86" height="16" rx="1"/><rect x="80" y="114" width="62" height="15" rx="1"/></g><circle cx="250" cy="92" r="9" fill="#C9921E"/>
+      </svg>
+      <div class="nav-divider"></div>
+      <span class="nav-venue">The Finch</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a class="nav-book" href="booking.html">Book a table</a>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="orb-wrap orb-wrap-1"><div class="orb orb-1"></div></div>
+      <div class="orb-wrap orb-wrap-2"><div class="orb orb-2"></div></div>
+      <div class="orb-wrap orb-wrap-3"><div class="orb orb-3"></div></div>
+      <div class="orb-wrap orb-wrap-4"><div class="orb orb-4"></div></div>
+      <div class="orb-wrap orb-wrap-5"><div class="orb orb-5"></div></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        Collingwood, Melbourne
+        <div class="hero-eyebrow-dot"></div>
+      </div>
+      <h1 class="hero-title">The Finch</h1>
+      <p class="hero-subtitle">
+        A neighbourhood restaurant doing things properly. Seasonal produce, considered wine, and service that makes you feel like a regular from the first visit.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="booking.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book a table
+        </a>
+        <a class="btn-secondary" href="#menu">View the menu</a>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Tue – Sun from 6 pm</div>
+      <div class="hero-meta-dot"></div>
+      <div class="hero-meta-item">314 Smith St, Collingwood</div>
+      <div class="hero-meta-dot"></div>
+      <div class="hero-meta-item">(03) 9415 7832</div>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="about">
+      <blockquote class="about-quote">
+        "A place where the kitchen takes its time, the wine list <em>surprises you</em>, and the room feels like it was always there."
+      </blockquote>
+      <div class="about-right">
+        <div class="section-eyebrow">About us</div>
+        <h2 class="section-title" style="margin-bottom: 16px;">Good food.<br>Good company.</h2>
+        <p class="section-body">
+          The Finch has been part of Smith Street since 2019. We run a short, focused menu that changes with the seasons — built around what's best right now, not what's always on. The wine list leans natural and small producer, and our team will point you somewhere interesting without making it a lecture.
+        </p>
+        <p class="section-body" style="margin-top: 12px;">
+          We take walk-ins when we can. Bookings open three weeks ahead.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Menu highlights ── -->
+  <section id="menu">
+    <div class="menu-section">
+      <div class="menu-header">
+        <div>
+          <div class="section-eyebrow">On the menu</div>
+          <h2 class="section-title">A few favourites</h2>
+        </div>
+        <a class="menu-view-all" href="#">
+          Full menu
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-category">Entrée</div>
+          <div class="menu-card-name">Burrata, white peach & basil</div>
+          <div class="menu-card-desc">Stracciatella-style, torn with late-summer peach, a good olive oil, and basil that was picked this morning.</div>
+          <div class="menu-card-footer">
+            <div class="menu-card-price">$19</div>
+            <div class="menu-card-tags">
+              <span class="tag">V</span>
+              <span class="tag">GF</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-category">Entrée</div>
+          <div class="menu-card-name">Charred leeks, romesco</div>
+          <div class="menu-card-desc">Wood-fired leeks with a deeply smoky romesco, toasted almonds and a little vinegar to cut through.</div>
+          <div class="menu-card-footer">
+            <div class="menu-card-price">$18</div>
+            <div class="menu-card-tags">
+              <span class="tag">VG</span>
+              <span class="tag">GF</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-category">Main</div>
+          <div class="menu-card-name">Dry-aged sirloin, 300g</div>
+          <div class="menu-card-desc">35-day Mornington Peninsula beef, rested properly, with bone marrow butter and a watercress salad alongside.</div>
+          <div class="menu-card-footer">
+            <div class="menu-card-price">$49</div>
+            <div class="menu-card-tags">
+              <span class="tag">GF</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-category">Main</div>
+          <div class="menu-card-name">Whole sea bream</div>
+          <div class="menu-card-desc">Grilled whole over charcoal with lemon, capers and brown butter. Ask us to fillet it at the table.</div>
+          <div class="menu-card-footer">
+            <div class="menu-card-price">$45</div>
+            <div class="menu-card-tags">
+              <span class="tag">GF</span>
+              <span class="tag">DF</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-category">Dessert</div>
+          <div class="menu-card-name">Dark chocolate délice</div>
+          <div class="menu-card-desc">70% Valrhona, barely set, with crème fraîche and a pinch of Maldon. The one thing that never leaves the menu.</div>
+          <div class="menu-card-footer">
+            <div class="menu-card-price">$16</div>
+            <div class="menu-card-tags">
+              <span class="tag">V</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card" style="border-color: rgba(13,74,40,0.3); background: rgba(13,74,40,0.06);">
+          <div class="menu-card-category" style="color: rgba(92,200,138,0.6);">Drinks</div>
+          <div class="menu-card-name">Natural & small-producer wine</div>
+          <div class="menu-card-desc" style="color: rgba(245,239,228,0.5);">We pour from a tight list of producers we've visited. Ask your server — they know every bottle.</div>
+          <div class="menu-card-footer">
+            <a class="menu-view-all" href="#">
+              Wine list
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Visit ── -->
+  <section id="visit">
+    <div class="info-section">
+      <div class="section-eyebrow">Find us</div>
+      <h2 class="section-title">Come in</h2>
+      <div class="info-grid">
+
+        <!-- Hours -->
+        <div>
+          <div class="info-block-title">Opening hours</div>
+          <div class="info-block">
+            <div class="hours-row">
+              <span class="hours-day">Monday</span>
+              <span class="hours-closed">Closed</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Tuesday – Thursday</span>
+              <span class="hours-time">6:00 pm – 10:30 pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Friday</span>
+              <span class="hours-time">12:00 pm – 3:00 pm, 6:00 pm – 11:00 pm</span>
+            </div>
+            <div class="hours-row">
+              <span class="hours-day">Saturday</span>
+              <span class="hours-time">12:00 pm – 3:00 pm, 6:00 pm – 11:00 pm</span>
+            </div>
+            <div class="hours-row" style="border-bottom: none;">
+              <span class="hours-day">Sunday</span>
+              <span class="hours-time">12:00 pm – 4:00 pm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div>
+          <div class="info-block-title">Location & contact</div>
+          <div class="location-detail">
+            <div class="location-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,239,228,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="location-label">Address</div>
+              <div class="location-value">314 Smith Street<br>Collingwood VIC 3066</div>
+            </div>
+          </div>
+          <div class="location-detail">
+            <div class="location-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,239,228,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.58 4.92 2 2 0 0 1 3.55 2.7h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.28 17.5z"/></svg>
+            </div>
+            <div>
+              <div class="location-label">Phone</div>
+              <div class="location-value">(03) 9415 7832</div>
+            </div>
+          </div>
+          <div class="location-detail">
+            <div class="location-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,239,228,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="location-label">Email</div>
+              <div class="location-value">hello@thefinch.com.au</div>
+            </div>
+          </div>
+          <div class="location-detail">
+            <div class="location-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(245,239,228,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="location-label">Parking</div>
+              <div class="location-value">Street parking on Smith St.<br>Tram stop directly outside.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Book CTA ── -->
+  <section class="cta-band">
+    <div class="section-eyebrow" style="text-align:center;">Reservations</div>
+    <h2 class="section-title">Ready when you are</h2>
+    <p class="section-body">
+      We take bookings up to three weeks ahead. Walk-ins are always welcome at the bar and for smaller groups when we have space.
+    </p>
+    <a class="btn-primary" href="booking.html" style="font-size: 16px; padding: 18px 40px;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Book a table
+    </a>
+    <p class="cta-note">Or call us on (03) 9415 7832 · Large groups of 8+ please call ahead</p>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div>
+      <div class="footer-powered">
+        Managed by <a href="#">Filo</a> — hospitality, handled.
+      </div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Bookings</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Wrapper divs follow the mouse — orbs animate independently via CSS
+    const wraps = [
+      { el: document.querySelector('.orb-wrap-1'), depth: 22 },
+      { el: document.querySelector('.orb-wrap-2'), depth: 30 },
+      { el: document.querySelector('.orb-wrap-3'), depth: 50 },
+      { el: document.querySelector('.orb-wrap-4'), depth: 35 },
+      { el: document.querySelector('.orb-wrap-5'), depth: 65 },
+    ];
+
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    const cur = wraps.map(() => ({ x: 0, y: 0 }));
+
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    function tick() {
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      wraps.forEach((w, i) => {
+        const tx = (mx - cx) / cx * w.depth;
+        const ty = (my - cy) / cy * w.depth;
+        cur[i].x += (tx - cur[i].x) * 0.05;
+        cur[i].y += (ty - cur[i].y) * 0.05;
+        w.el.style.transform = `translate(${cur[i].x}px, ${cur[i].y}px)`;
+      });
+      requestAnimationFrame(tick);
+    }
+    tick();
+  </script>
+</body>
+</html>

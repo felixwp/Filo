@@ -29,7 +29,14 @@ function Login({ onLogin }) {
     <div style={{ display: 'flex', height: '100%', background: 'var(--filo-black)' }}>
       {/* left brand panel */}
       <div style={{ width: 420, background: 'var(--filo-green)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 44, flexShrink: 0 }}>
-        <img src="../../assets/filo-mark-mono-cream.svg" height="56" alt="Filo" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="40 60 222 92" height="44" aria-label="Filo">
+          <g fill="none" stroke="#F5EFE4" strokeWidth="11" strokeLinecap="round">
+            <path d="M90 142 A30 30 0 0 1 150 142" />
+            <path d="M68 142 A52 52 0 0 1 172 142" />
+            <path d="M46 142 A74 74 0 0 1 194 142" />
+          </g>
+          <circle cx="250" cy="92" r="9" fill="#C9921E" />
+        </svg>
         <div>
           <div style={{ font: 'var(--text-wordmark)', letterSpacing: '0.10em', fontSize: 40, color: 'var(--fg-1)', textTransform: 'uppercase' }}>FILO</div>
           <div style={{ font: 'var(--text-h2)', fontWeight: 400, color: 'rgba(245,239,228,0.85)', marginTop: 14 }}>A good shift.</div>

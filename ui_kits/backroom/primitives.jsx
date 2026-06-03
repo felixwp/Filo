@@ -139,7 +139,15 @@ function Sidebar({ active, onNav, owner, venue }) {
     <div style={{ width: 232, background: 'var(--filo-black)', borderRight: '0.5px solid var(--border-cream)', display: 'flex', flexDirection: 'column', padding: '20px 10px 20px', flexShrink: 0 }}>
       {/* Logo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 6, marginBottom: 24 }}>
-        <img src="../../assets/filo-mark-green.svg" height="30" alt="Filo" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 240" height="30" aria-label="Filo" style={{ flexShrink: 0 }}>
+          <circle cx="120" cy="120" r="120" fill="#0D4A28" />
+          <g fill="none" stroke="#F5EFE4" strokeWidth="11" strokeLinecap="round">
+            <path d="M90 142 A30 30 0 0 1 150 142" />
+            <path d="M68 142 A52 52 0 0 1 172 142" />
+            <path d="M46 142 A74 74 0 0 1 194 142" />
+          </g>
+          <circle cx="250" cy="92" r="9" fill="#C9921E" />
+        </svg>
         <div>
           <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 15, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--fg-1)', lineHeight: 1.1 }}>Filo</div>
           <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 400, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--fg-4)', marginTop: 1 }}>Backroom</div>

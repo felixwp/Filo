@@ -50,11 +50,16 @@ window.BR_DATA = {
   ],
 
   suppliers: [
-    { id: 1, name: 'Mornington Meats',    category: 'Meat & Poultry', contact: 'Sarah Chen',     phone: '03 5978 1234', nextOrder: 'Tomorrow · Wed 4 Jun',  dueToday: true  },
-    { id: 2, name: 'Flinders Seafood',    category: 'Seafood',        contact: 'Tom Russo',      phone: '03 5989 5678', nextOrder: 'Thu 5 Jun',              dueToday: false },
-    { id: 3, name: 'Melbourne Fresh Co.', category: 'Produce',        contact: 'James Whitfield',phone: '03 9123 4567', nextOrder: 'Sat 6 Jun',              dueToday: false },
-    { id: 4, name: 'Young & Rashleigh',   category: 'Wine & Spirits', contact: 'Emma Barker',    phone: '02 9876 5432', nextOrder: 'Tue 9 Jun',              dueToday: false },
-    { id: 5, name: 'Primo Dairy',         category: 'Dairy & Eggs',   contact: 'Nick Portelli',  phone: '03 9345 6789', nextOrder: 'Sat 6 Jun',              dueToday: false },
+    { id: 1, name: 'Mornington Meats',    category: 'Meat & Poultry', contact: 'Sarah Chen',      phone: '03 5978 1234', email: 'sarah@morningtonmeats.com.au',    nextOrder: 'Tomorrow · Wed 4 Jun',  dueToday: true  },
+    { id: 2, name: 'Flinders Seafood',    category: 'Seafood',        contact: 'Tom Russo',       phone: '03 5989 5678', email: 'tom@flindersseafood.com.au',      nextOrder: 'Thu 5 Jun',              dueToday: false },
+    { id: 3, name: 'Melbourne Fresh Co.', category: 'Produce',        contact: 'James Whitfield', phone: '03 9123 4567', email: 'james@melbournefresh.com.au',     nextOrder: 'Sat 6 Jun',              dueToday: false },
+    { id: 4, name: 'Young & Rashleigh',   category: 'Wine & Spirits', contact: 'Emma Barker',     phone: '02 9876 5432', email: 'emma@youngandrashleigh.com.au',   nextOrder: 'Tue 9 Jun',              dueToday: false },
+    { id: 5, name: 'Primo Dairy',         category: 'Dairy & Eggs',   contact: 'Nick Portelli',   phone: '03 9345 6789', email: 'nick@primodairy.com.au',          nextOrder: 'Sat 6 Jun',              dueToday: false },
+  ],
+
+  priceAlerts: [
+    { item: 'Dry-aged sirloin, 300g', supplier: 'Mornington Meats',  oldPrice: 48.50, newPrice: 54.00, unit: 'per kg',      changePct: 11.3 },
+    { item: 'Whole sea bream',        supplier: 'Flinders Seafood',   oldPrice: 22.00, newPrice: 26.50, unit: 'per portion', changePct: 20.5 },
   ],
 
   aiOrder: {
@@ -105,6 +110,16 @@ window.BR_DATA = {
     { name: 'Vanilla ice cream',          category: 'Dessert',   sold:  6, revenue:  90,  margin: 66.7 },
   ],
   marginTarget: 60,
+
+  dailyRevenue: [
+    { day: 'Mon', date: '2 Jun', revenue: 3200,  lastWeek: 2900  },
+    { day: 'Tue', date: '3 Jun', revenue: 4800,  lastWeek: 4200  },
+    { day: 'Wed', date: '4 Jun', revenue: 5400,  lastWeek: 4800  },
+    { day: 'Thu', date: '5 Jun', revenue: 5800,  lastWeek: 5400  },
+    { day: 'Fri', date: '6 Jun', revenue: 8600,  lastWeek: 7900  },
+    { day: 'Sat', date: '7 Jun', revenue: 12400, lastWeek: 11200 },
+    { day: 'Sun', date: '8 Jun', revenue: 2600,  lastWeek: 2100  },
+  ],
 
   weeklyRevenue: [
     { label: '7 Apr',  value: 31200 },
