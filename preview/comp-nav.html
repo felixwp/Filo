@@ -1,0 +1,26 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+.nav{display:inline-flex;flex-direction:column;gap:8px;background:var(--filo-surface);border:0.5px solid var(--border-cream);border-radius:18px;padding:12px;}
+.nav a{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:var(--fg-4);}
+.nav a.on{background:var(--filo-green);color:var(--fg-1);}
+.nav a:not(.on):hover{color:var(--fg-2);background:var(--filo-surface-2);}
+.nav i{width:24px;height:24px;}
+</style></head>
+<body><div class="card row" style="gap:34px;align-items:center;">
+  <div class="nav">
+    <a class="on" title="Floor"><i data-lucide="layout-grid"></i></a>
+    <a title="Kitchen display"><i data-lucide="monitor"></i></a>
+    <a title="Guide"><i data-lucide="book-open"></i></a>
+    <a title="Dashboard"><i data-lucide="bar-chart-3"></i></a>
+    <a title="Settings"><i data-lucide="settings"></i></a>
+  </div>
+  <div class="col" style="gap:10px;">
+    <div class="mono-tag" style="color:var(--fg-2);line-height:1.5;">Primary nav · icon rail</div>
+    <div class="mono-tag" style="line-height:1.5;">Active · green fill, full cream</div>
+    <div class="mono-tag" style="line-height:1.5;">Inactive · cream 38%</div>
+    <div class="mono-tag" style="color:var(--fg-4);line-height:1.5;">Lucide · 24px · 2px stroke</div>
+  </div>
+</div>
+<script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons();</script>
+</body></html>

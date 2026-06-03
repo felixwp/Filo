@@ -1,0 +1,32 @@
+/* Shared reset for Design System preview cards.
+   Each card targets ~700px wide. Dark ground per the brand. */
+@import url('../colors_and_type.css');
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--filo-black);
+  color: var(--fg-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.card {
+  padding: 24px 28px;
+  min-height: 100%;
+}
+.row { display: flex; align-items: center; gap: 12px; }
+.col { display: flex; flex-direction: column; }
+.muted { color: var(--fg-3); }
+.mono-tag {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.eyebrow {
+  font: var(--text-pill);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}

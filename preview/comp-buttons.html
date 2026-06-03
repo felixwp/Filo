@@ -1,0 +1,26 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+.btn{font:var(--text-h3);border:none;border-radius:var(--radius-btn);min-height:48px;padding:0 22px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:transform .1s var(--ease-out),background .15s,border-color .15s,color .15s;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--filo-green);color:var(--fg-on-green);}
+.btn-primary:hover{background:var(--filo-green-bright);}
+.btn-secondary{background:transparent;color:var(--fg-1);border:1px solid var(--border-cream-2);}
+.btn-secondary:hover{background:var(--filo-surface-2);}
+.btn-ghost{background:transparent;color:var(--fg-2);border:1px solid var(--border-cream-2);}
+.btn-ghost:hover{background:var(--filo-surface-2);color:var(--fg-1);}
+.btn-danger{background:transparent;color:#d9806f;border:1px solid rgba(158,59,46,0.6);}
+.btn-danger:hover{background:rgba(158,59,46,0.18);border-color:#bf4a3a;color:#f0a394;}
+</style></head>
+<body><div class="card">
+  <div class="eyebrow" style="margin-bottom:18px;">Buttons · one primary per screen · press = scale 0.97</div>
+  <div class="row" style="gap:14px;flex-wrap:wrap;">
+    <button class="btn btn-primary"><i data-lucide="send-horizontal" style="width:18px;height:18px;"></i>Send course</button>
+    <button class="btn btn-secondary"><i data-lucide="printer" style="width:18px;height:18px;"></i>Print receipt</button>
+    <button class="btn btn-secondary">Open tab</button>
+    <button class="btn btn-ghost">Cancel</button>
+    <button class="btn btn-danger">Void item</button>
+  </div>
+</div>
+<script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons();</script>
+</body></html>

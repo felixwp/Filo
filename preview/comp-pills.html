@@ -1,0 +1,20 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+.pill{font:var(--text-pill);letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;}
+.dot{width:6px;height:6px;border-radius:999px;}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--fg-2);background:var(--filo-surface-3);padding:4px 8px;border-radius:6px;}
+</style></head>
+<body><div class="card">
+  <div class="eyebrow" style="margin-bottom:16px;">Status pills · dietary tags</div>
+  <div class="row" style="gap:10px;flex-wrap:wrap;">
+    <span class="pill" style="background:rgba(20,99,58,0.22);color:#5cc88a;"><span class="dot" style="background:#5cc88a;"></span>Occupied</span>
+    <span class="pill" style="background:rgba(201,122,30,0.2);color:#e0973f;"><span class="dot" style="background:#e0973f;"></span>Ordering</span>
+    <span class="pill" style="background:rgba(201,146,30,0.2);color:#d8a73a;"><span class="dot" style="background:#d8a73a;"></span>Awaiting payment</span>
+    <span class="pill" style="background:transparent;color:var(--fg-3);border:0.5px solid var(--border-cream);">Available</span>
+  </div>
+  <div class="row" style="gap:8px;margin-top:18px;">
+    <span class="tag">V</span><span class="tag">VG</span><span class="tag">GF</span><span class="tag">DF</span>
+    <span class="mono-tag" style="margin-left:8px;">dietary — tracked text, not icons</span>
+  </div>
+</div></body></html>

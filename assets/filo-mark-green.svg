@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 240" width="264" height="240" role="img" aria-label="Filo mark">
+  <circle cx="120" cy="120" r="120" fill="#0D4A28"></circle>
+  <g fill="#F5EFE4">
+    <rect x="80" y="62" width="16" height="116" rx="1"></rect>
+    <rect x="80" y="62" width="86" height="16" rx="1"></rect>
+    <rect x="80" y="114" width="62" height="15" rx="1"></rect>
+  </g>
+  <circle cx="250" cy="92" r="9" fill="#C9921E"></circle>
+</svg>

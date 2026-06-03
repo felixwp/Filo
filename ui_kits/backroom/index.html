@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filo · Backroom</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #040404; overflow: hidden; }
+  #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #frame {
+    width: 1440px; height: 900px; flex-shrink: 0;
+    background: var(--filo-black);
+    border-radius: 14px;
+    border: 0.5px solid rgba(245,239,228,0.09);
+    box-shadow: 0 40px 130px rgba(0,0,0,0.75);
+    overflow: hidden;
+    transform-origin: center center;
+    font-family: var(--font-sans);
+    color: var(--fg-1);
+    -webkit-font-smoothing: antialiased;
+  }
+  #root { width: 100%; height: 100%; }
+  button { font-family: var(--font-sans); color: inherit; }
+  * { box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { background: rgba(245,239,228,0.12); border-radius: 99px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="frame"><div id="root"></div></div></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+  /* Scale the fixed canvas to fit the browser window (letterbox). */
+  function fit() {
+    const pad = 28;
+    const s = Math.min((window.innerWidth - pad) / 1440, (window.innerHeight - pad) / 900);
+    document.getElementById('frame').style.transform = 'scale(' + Math.min(s, 1) + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+</script>
+
+<script src="data.js"></script>
+<script type="text/babel" src="primitives.jsx"></script>
+<script type="text/babel" src="Dashboard.jsx"></script>
+<script type="text/babel" src="Suppliers.jsx"></script>
+<script type="text/babel" src="Roster.jsx"></script>
+<script type="text/babel" src="Reports.jsx"></script>
+<script type="text/babel" src="App.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+  const wait = setInterval(() => {
+    if (window.BackroomApp && window.Dashboard && window.Suppliers && window.Roster && window.Reports && window.Sidebar) {
+      clearInterval(wait);
+      ReactDOM.createRoot(document.getElementById('root')).render(<BackroomApp />);
+    }
+  }, 40);
+</script>
+</body>
+</html>

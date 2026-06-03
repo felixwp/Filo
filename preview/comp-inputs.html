@@ -1,0 +1,24 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+.field{background:var(--filo-surface-3);border:1px solid var(--border-cream);border-radius:10px;height:48px;display:flex;align-items:center;gap:10px;padding:0 14px;color:var(--fg-1);font:var(--text-body);}
+.field.focus{border-color:var(--filo-green-bright);box-shadow:0 0 0 3px rgba(20,99,58,0.25);}
+.field .ph{color:var(--fg-4);}
+.seg{display:inline-flex;background:var(--filo-surface-3);border-radius:10px;padding:4px;gap:4px;}
+.seg button{border:none;background:transparent;color:var(--fg-3);font:var(--text-h3);padding:8px 16px;border-radius:7px;cursor:pointer;}
+.seg button.on{background:var(--filo-green);color:var(--fg-on-green);}
+</style></head>
+<body><div class="card">
+  <div class="eyebrow" style="margin-bottom:14px;">Inputs · segmented control</div>
+  <div class="col" style="gap:12px;">
+    <div class="field focus"><i data-lucide="search" style="width:18px;height:18px;color:var(--fg-3);"></i><span>Margaux 2015</span></div>
+    <div class="field"><i data-lucide="user" style="width:18px;height:18px;color:var(--fg-3);"></i><span class="ph">Customer name</span></div>
+    <div class="seg" style="margin-top:2px;">
+      <button class="on">Even split</button>
+      <button>By item</button>
+      <button>Custom</button>
+    </div>
+  </div>
+</div>
+<script src="https://unpkg.com/lucide@latest"></script><script>lucide.createIcons();</script>
+</body></html>
