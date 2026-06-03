@@ -30,6 +30,13 @@ function CamerasScreen() {
         }
       />
 
+      <div style={{ padding: '10px 20px', borderBottom: '0.5px solid var(--border-cream)', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+        <Icon name="info" size={13} color="var(--fg-4)" />
+        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--fg-3)', lineHeight: 1.5 }}>
+          For venues with cameras installed, live CCTV feeds appear here — floor, bar, entry, and kitchen — plus recorded footage, incident flagging, and camera management, all from Filo.
+        </span>
+      </div>
+
       <div style={{ flex: 1, padding: '16px 20px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 10, minHeight: 0 }}>
         {FEEDS.map((feed, i) => {
           const isSelected = selected === i;
